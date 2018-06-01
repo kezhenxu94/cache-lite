@@ -13,7 +13,10 @@ class ExpirableCache(private val delegate: Cache,
 	private var lastFlushTime = System.nanoTime()
 
 	override val size: Int
-		get() = delegate.size
+		get() {
+			recycle()
+			return delegate.size
+		}
 
 	override fun set(key: Any, value: Any) {
 		delegate[key] = value
