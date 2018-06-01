@@ -1,0 +1,6 @@
+.*
+!.gitignore
+!.travis.yml
+build/
+target/
+*.iml
