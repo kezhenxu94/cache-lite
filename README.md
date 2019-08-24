@@ -2,7 +2,7 @@ Cache-Lite - An extremely light-weight cache framework for Kotlin
 =================================================================
 
 [![Build Status](https://img.shields.io/travis/kezhenxu94/cache-lite/master.svg)](https://travis-ci.org/kezhenxu94/cache-lite)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%20v2.0-blue.svg)](https://apache.org)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.2.40-blue.svg)](https://kotlinlang.org)
 [![Kotlin Version](https://img.shields.io/codecov/c/github/kezhenxu94/cache-lite/master.svg)](https://codecov.io/gh/kezhenxu94/cache-lite) [![Join the chat at https://gitter.im/cache-lite/Lobby](https://badges.gitter.im/cache-lite/Lobby.svg)](https://gitter.im/cache-lite/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
