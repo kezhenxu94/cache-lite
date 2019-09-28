@@ -14,6 +14,14 @@
 		<kotlin.version>1.2.40</kotlin.version>
 	</properties>
 
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub kezhenxu94 Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/kezhenxu94/cache-lite</url>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
@@ -96,8 +104,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>
