@@ -1,6 +1,6 @@
-package me.kezhenxu94.cache.lite.impl
+package io.github.kezhenxu94.cache.lite.impl
 
-import me.kezhenxu94.cache.lite.Cache
+import io.github.kezhenxu94.cache.lite.Cache
 import java.util.*
 
 /**
@@ -8,8 +8,8 @@ import java.util.*
  *
  * @author kezhenxu94 (kezhenxu94 at 163 dot com)
  */
-class FIFOCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache {
-	private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f) {
+class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache {
+	private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f, true) {
 		override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Any, Any>): Boolean {
 			val tooManyCachedItems = size > minimalSize
 			if (tooManyCachedItems) eldestKeyToRemove = eldest.key

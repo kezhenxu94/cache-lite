@@ -1,4 +1,4 @@
-package me.kezhenxu94.cache.lite
+package io.github.kezhenxu94.cache.lite
 
 /**
  * Created by kezhenxu94 on 11/14/17.

@@ -1,4 +1,4 @@
-package me.kezhenxu94.cache.lite
+package io.github.kezhenxu94.cache.lite
 
 import org.junit.After
 import org.junit.Assert

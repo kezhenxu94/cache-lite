@@ -1,6 +1,6 @@
-package me.kezhenxu94.cache.lite.impl
+package io.github.kezhenxu94.cache.lite.impl
 
-import me.kezhenxu94.cache.lite.BaseCacheTest
+import io.github.kezhenxu94.cache.lite.BaseCacheTest
 import org.junit.Assert
 import org.junit.Test
 
