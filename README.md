@@ -79,7 +79,7 @@ All of the methods are **delegated** to `cache`, it is fine because `cache` is `
 
 By now our cache will keep all the entries until we remove them manually, it can be very memory-intensive. In many caching scenarios, we assume that **the entries we recently used will be used again soon**, if that is true (mostly it is), we can keep only a certain number of entries that are recently used and remove others, this kind of flush strategy is called **[Least Recently Used](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU)**.
 
-Since we already have `PerpetualCache` and we want to **add responsibilitis** to this class, the **[Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern)** is the best choice here.
+Since we already have `PerpetualCache` and we want to **add responsibilities** to this class, the **[Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern)** is the best choice here.
 
 ```kotlin
 class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache {
