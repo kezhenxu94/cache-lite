@@ -82,7 +82,7 @@ By now our cache will keep all the entries until we remove them manually, it can
 Since we already have `PerpetualCache` and we want to **add responsibilities** to this class, the **[Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern)** is the best choice here.
 
 ```kotlin
-class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache {
+class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache by delegate {
 	private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f, true) {
 		override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Any, Any>): Boolean {
 			val tooManyCachedItems = size > minimalSize
@@ -93,15 +93,10 @@ class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAU
 
 	private var eldestKeyToRemove: Any? = null
 
-	override val size: Int
-		get() = delegate.size
-
 	override fun set(key: Any, value: Any) {
 		delegate[key] = value
 		cycleKeyMap(key)
 	}
-
-	override fun remove(key: Any) = delegate.remove(key)
 
 	override fun get(key: Any): Any? {
 		keyMap[key]
