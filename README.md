@@ -129,15 +129,14 @@ As we said above, expiration is critical in caching framework because it prevent
 
 ```kotlin
 class ExpirableCache(private val delegate: Cache,
-                     private val flushInterval: Long = TimeUnit.MINUTES.toMillis(1)) : Cache {
+                     private val flushInterval: Long = TimeUnit.MINUTES.toMillis(1)) : Cache by delegate {
 	private var lastFlushTime = System.nanoTime()
 
 	override val size: Int
-		get() = delegate.size
-
-	override fun set(key: Any, value: Any) {
-		delegate[key] = value
-	}
+		get() {
+			recycle()
+			return delegate.size
+		}
 
 	override fun remove(key: Any): Any? {
 		recycle()
@@ -148,8 +147,6 @@ class ExpirableCache(private val delegate: Cache,
 		recycle()
 		return delegate[key]
 	}
-
-	override fun clear() = delegate.clear()
 
 	private fun recycle() {
 		val shouldRecycle = System.nanoTime() - lastFlushTime >= TimeUnit.MILLISECONDS.toNanos(flushInterval)

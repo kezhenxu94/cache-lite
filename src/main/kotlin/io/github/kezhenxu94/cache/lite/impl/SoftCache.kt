@@ -10,16 +10,13 @@ import java.lang.ref.SoftReference
  *
  * @author kezhenxu94 (kezhenxu94 at 163 dot com)
  */
-class SoftCache(private val delegate: Cache) : Cache {
+class SoftCache(private val delegate: Cache) : Cache by delegate {
 	private val referenceQueue = ReferenceQueue<Any>()
 
 	private class SoftEntry internal constructor(
 			internal val key: Any,
 			value: Any,
 			referenceQueue: ReferenceQueue<Any>) : SoftReference<Any>(value, referenceQueue)
-
-	override val size: Int
-		get() = delegate.size
 
 	override fun set(key: Any, value: Any) {
 		removeUnreachableItems()
@@ -38,8 +35,6 @@ class SoftCache(private val delegate: Cache) : Cache {
 		delegate.remove(key)
 		return null
 	}
-
-	override fun clear() = delegate.clear()
 
 	private fun removeUnreachableItems() {
 		var softEntry = referenceQueue.poll() as SoftEntry?
