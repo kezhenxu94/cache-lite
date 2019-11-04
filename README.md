@@ -82,7 +82,7 @@ By now our cache will keep all the entries until we remove them manually, it can
 Since we already have `PerpetualCache` and we want to **add responsibilities** to this class, the **[Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern)** is the best choice here.
 
 ```kotlin
-class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache {
+class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache by delegate {
 	private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f, true) {
 		override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Any, Any>): Boolean {
 			val tooManyCachedItems = size > minimalSize
@@ -93,15 +93,10 @@ class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAU
 
 	private var eldestKeyToRemove: Any? = null
 
-	override val size: Int
-		get() = delegate.size
-
 	override fun set(key: Any, value: Any) {
 		delegate[key] = value
 		cycleKeyMap(key)
 	}
-
-	override fun remove(key: Any) = delegate.remove(key)
 
 	override fun get(key: Any): Any? {
 		keyMap[key]
@@ -134,15 +129,14 @@ As we said above, expiration is critical in caching framework because it prevent
 
 ```kotlin
 class ExpirableCache(private val delegate: Cache,
-                     private val flushInterval: Long = TimeUnit.MINUTES.toMillis(1)) : Cache {
+                     private val flushInterval: Long = TimeUnit.MINUTES.toMillis(1)) : Cache by delegate {
 	private var lastFlushTime = System.nanoTime()
 
 	override val size: Int
-		get() = delegate.size
-
-	override fun set(key: Any, value: Any) {
-		delegate[key] = value
-	}
+		get() {
+			recycle()
+			return delegate.size
+		}
 
 	override fun remove(key: Any): Any? {
 		recycle()
@@ -153,8 +147,6 @@ class ExpirableCache(private val delegate: Cache,
 		recycle()
 		return delegate[key]
 	}
-
-	override fun clear() = delegate.clear()
 
 	private fun recycle() {
 		val shouldRecycle = System.nanoTime() - lastFlushTime >= TimeUnit.MILLISECONDS.toNanos(flushInterval)

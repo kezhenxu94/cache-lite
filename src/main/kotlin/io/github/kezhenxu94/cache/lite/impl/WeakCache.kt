@@ -10,16 +10,13 @@ import java.lang.ref.WeakReference
  *
  * @author kezhenxu94 (kezhenxu94 at 163 dot com)
  */
-class WeakCache(private val delegate: Cache) : Cache {
+class WeakCache(private val delegate: Cache) : Cache by delegate {
 	private val referenceQueue = ReferenceQueue<Any>()
 
 	private class WeakEntry internal constructor(
 			internal val key: Any,
 			value: Any,
 			referenceQueue: ReferenceQueue<Any>) : WeakReference<Any>(value, referenceQueue)
-
-	override val size: Int
-		get() = delegate.size
 
 	override fun set(key: Any, value: Any) {
 		removeUnreachableItems()
@@ -38,8 +35,6 @@ class WeakCache(private val delegate: Cache) : Cache {
 		delegate.remove(key)
 		return null
 	}
-
-	override fun clear() = delegate.clear()
 
 	private fun removeUnreachableItems() {
 		var weakEntry = referenceQueue.poll() as WeakEntry?

@@ -8,7 +8,7 @@ import java.util.*
  *
  * @author kezhenxu94 (kezhenxu94 at 163 dot com)
  */
-class FIFOCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache {
+class FIFOCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache by delegate {
 	private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f) {
 		override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Any, Any>): Boolean {
 			val tooManyCachedItems = size > minimalSize
@@ -19,15 +19,10 @@ class FIFOCache(private val delegate: Cache, private val minimalSize: Int = DEFA
 
 	private var eldestKeyToRemove: Any? = null
 
-	override val size: Int
-		get() = delegate.size
-
 	override fun set(key: Any, value: Any) {
 		delegate[key] = value
 		cycleKeyMap(key)
 	}
-
-	override fun remove(key: Any) = delegate.remove(key)
 
 	override fun get(key: Any): Any? {
 		keyMap[key]
