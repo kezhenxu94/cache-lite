@@ -30,7 +30,9 @@ class ExpirableCache(private val delegate: Cache,
 
 	private fun recycle() {
 		val shouldRecycle = System.nanoTime() - lastFlushTime >= TimeUnit.MILLISECONDS.toNanos(flushInterval)
-		if (!shouldRecycle) return
-		delegate.clear()
+		if (shouldRecycle) {
+			delegate.clear()
+			lastFlushTime = System.nanoTime()
+		}
 	}
 }
