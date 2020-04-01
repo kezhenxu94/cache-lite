@@ -1,7 +1,6 @@
 package io.github.kezhenxu94.cache.lite.impl
 
 import io.github.kezhenxu94.cache.lite.Cache
-import java.util.*
 
 /**
  * Created by kezhenxu94 on 11/14/17.
