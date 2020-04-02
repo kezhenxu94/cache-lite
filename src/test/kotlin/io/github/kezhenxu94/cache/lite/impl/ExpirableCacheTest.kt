@@ -20,4 +20,14 @@ class ExpirableCacheTest : BaseCacheTest() {
 		Thread.sleep(TimeUnit.SECONDS.toMillis(5))
 		Assert.assertEquals(0, cache.size)
 	}
+
+    @Test
+    fun shouldExpireMultipleTimes() {
+        Thread.sleep(TimeUnit.SECONDS.toMillis(5))
+        Assert.assertEquals(0, cache.size)
+        cache[1] = 1
+        Assert.assertEquals(1, cache.size)
+        Thread.sleep(TimeUnit.SECONDS.toMillis(5))
+        Assert.assertEquals(0, cache.size)
+    }
 }
