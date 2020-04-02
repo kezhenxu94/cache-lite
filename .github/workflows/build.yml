@@ -8,10 +8,6 @@ on:
     branches:
       - master
 
-env:
-  GITHUB_USERNAME: x-access-token
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build:
     name: Build
@@ -22,5 +18,3 @@ jobs:
         run: |
           ./mvnw --batch-mode clean package
           bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
-      - name: Deploy to GitHub Package Registry
-        run: ./mvnw --batch-mode --settings settings.xml -Pgithub clean deploy
