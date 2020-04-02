@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  release:
+    types:
+      - created
+
+env:
+  GITHUB_USERNAME: x-access-token
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  deploy-github:
+    name: Deploy to GitHub Package Registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to GitHub Package Registry
+        run: ./mvnw --batch-mode --settings settings.xml -Pgithub clean deploy
