@@ -1,6 +1,7 @@
 Cache-Lite - An extremely light-weight cache framework for Kotlin
 =================================================================
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ba9c9aa2b9484f44ad1406763094bb63)](https://app.codacy.com/manual/kezhenxu94/cache-lite?utm_source=github.com&utm_medium=referral&utm_content=kezhenxu94/cache-lite&utm_campaign=Badge_Grade_Dashboard)
 [![Build](https://github.com/kezhenxu94/cache-lite/workflows/Build/badge.svg?branch=master)](https://github.com/kezhenxu94/cache-lite/actions?query=branch%3Amaster+event%3Apush+workflow%3A%22Build%22)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%20v2.0-blue.svg)](https://apache.org)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.71-blue.svg)](https://kotlinlang.org)
