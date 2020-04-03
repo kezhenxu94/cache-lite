@@ -5,7 +5,7 @@
 
   <groupId>io.github.kezhenxu94</groupId>
   <artifactId>cache-lite</artifactId>
-  <version>0.1.4-SNAPSHOT</version>
+  <version>0.1.4</version>
 
   <name>cache-lite</name>
   <description>An extremely light-weight cache framework for Kotlin</description>
@@ -30,7 +30,7 @@
     <connection>scm:git:git://github.com/kezhenxu94/cache-lite.git</connection>
     <developerConnection>scm:git:git@github.com:kezhenxu94/cache-lite.git</developerConnection>
     <url>https://github.com/kezhenxu94/cache-lite</url>
-    <tag>v0.1.3</tag>
+    <tag>v0.1.4</tag>
   </scm>
 
   <issueManagement>
