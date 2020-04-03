@@ -23,6 +23,22 @@
         </repository>
       </repositories>
     </profile>
+    <profile>
+      <id>ossrh</id>
+      <repositories>
+        <repository>
+          <id>ossrh</id>
+          <name>Sonatype kezhenxu94 Apache Maven Packages</name>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+        </repository>
+      </repositories>
+    </profile>
   </profiles>
 
   <servers>
@@ -30,6 +46,11 @@
       <id>github</id>
       <username>${env.GITHUB_USERNAME}</username>
       <password>${env.GITHUB_TOKEN}</password>
+    </server>
+    <server>
+      <id>ossrh</id>
+      <username>${env.OSSRH_USERNAME}</username>
+      <password>${env.OSSRH_PASSWORD}</password>
     </server>
   </servers>
 </settings>
