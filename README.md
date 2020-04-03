@@ -18,9 +18,9 @@ Although this is a simple project for study case, it's well tested and you can s
 
 ```xml
 <dependency>
-    <groupId>io.github.kezhenxu94</groupId>
-    <artifactId>cache-lite</artifactId>
-    <version>${cache-lite.version}</version>
+  <groupId>io.github.kezhenxu94</groupId>
+  <artifactId>cache-lite</artifactId>
+  <version>${cache-lite.version}</version>
 </dependency>
 ```
 
@@ -48,15 +48,15 @@ There are some basic operations on a cache, you may want to `put` a value into i
 
 ```kotlin
 interface Cache {
-	val size: Int
+  val size: Int
 
-	operator fun set(key: Any, value: Any)
+  operator fun set(key: Any, value: Any)
 
-	operator fun get(key: Any): Any?
+  operator fun get(key: Any): Any?
 
-	fun remove(key: Any): Any?
+  fun remove(key: Any): Any?
 
-	fun clear()
+  fun clear()
 }
 ```
 
@@ -70,20 +70,20 @@ It is true that we should program to interface not implementation, but when we a
 
 ```kotlin
 class PerpetualCache : Cache {
-	private val cache = HashMap<Any, Any>()
+  private val cache = HashMap<Any, Any>()
 
-	override val size: Int
-		get() = cache.size
+  override val size: Int
+    get() = cache.size
 
-	override fun set(key: Any, value: Any) {
-		this.cache[key] = value
-	}
+  override fun set(key: Any, value: Any) {
+    this.cache[key] = value
+  }
 
-	override fun remove(key: Any) = this.cache.remove(key)
+  override fun remove(key: Any) = this.cache.remove(key)
 
-	override fun get(key: Any) = this.cache[key]
+  override fun get(key: Any) = this.cache[key]
 
-	override fun clear() = this.cache.clear()
+  override fun clear() = this.cache.clear()
 }
 ```
 
@@ -97,41 +97,41 @@ Since we already have `PerpetualCache` and we want to **add responsibilities** t
 
 ```kotlin
 class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache by delegate {
-	private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f, true) {
-		override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Any, Any>): Boolean {
-			val tooManyCachedItems = size > minimalSize
-			if (tooManyCachedItems) eldestKeyToRemove = eldest.key
-			return tooManyCachedItems
-		}
-	}
+  private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f, true) {
+    override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Any, Any>): Boolean {
+      val tooManyCachedItems = size > minimalSize
+      if (tooManyCachedItems) eldestKeyToRemove = eldest.key
+      return tooManyCachedItems
+    }
+  }
 
-	private var eldestKeyToRemove: Any? = null
+  private var eldestKeyToRemove: Any? = null
 
-	override fun set(key: Any, value: Any) {
-		delegate[key] = value
-		cycleKeyMap(key)
-	}
+  override fun set(key: Any, value: Any) {
+    delegate[key] = value
+    cycleKeyMap(key)
+  }
 
-	override fun get(key: Any): Any? {
-		keyMap[key]
-		return delegate[key]
-	}
+  override fun get(key: Any): Any? {
+    keyMap[key]
+    return delegate[key]
+  }
 
-	override fun clear() {
-		keyMap.clear()
-		delegate.clear()
-	}
+  override fun clear() {
+    keyMap.clear()
+    delegate.clear()
+  }
 
-	private fun cycleKeyMap(key: Any) {
-		keyMap[key] = PRESENT
-		eldestKeyToRemove?.let { delegate.remove(it) }
-		eldestKeyToRemove = null
-	}
+  private fun cycleKeyMap(key: Any) {
+    keyMap[key] = PRESENT
+    eldestKeyToRemove?.let { delegate.remove(it) }
+    eldestKeyToRemove = null
+  }
 
-	companion object {
-		private const val DEFAULT_SIZE = 100
-		private const val PRESENT = true
-	}
+  companion object {
+    private const val DEFAULT_SIZE = 100
+    private const val PRESENT = true
+  }
 }
 ```
 
@@ -144,29 +144,29 @@ As we said above, expiration is critical in caching framework because it prevent
 ```kotlin
 class ExpirableCache(private val delegate: Cache,
                      private val flushInterval: Long = TimeUnit.MINUTES.toMillis(1)) : Cache by delegate {
-	private var lastFlushTime = System.nanoTime()
+  private var lastFlushTime = System.nanoTime()
 
-	override val size: Int
-		get() {
-			recycle()
-			return delegate.size
-		}
+  override val size: Int
+    get() {
+      recycle()
+      return delegate.size
+    }
 
-	override fun remove(key: Any): Any? {
-		recycle()
-		return delegate.remove(key)
-	}
+  override fun remove(key: Any): Any? {
+    recycle()
+    return delegate.remove(key)
+  }
 
-	override fun get(key: Any): Any? {
-		recycle()
-		return delegate[key]
-	}
+  override fun get(key: Any): Any? {
+    recycle()
+    return delegate[key]
+  }
 
-	private fun recycle() {
-		val shouldRecycle = System.nanoTime() - lastFlushTime >= TimeUnit.MILLISECONDS.toNanos(flushInterval)
-		if (!shouldRecycle) return
-		delegate.clear()
-	}
+  private fun recycle() {
+    val shouldRecycle = System.nanoTime() - lastFlushTime >= TimeUnit.MILLISECONDS.toNanos(flushInterval)
+    if (!shouldRecycle) return
+    delegate.clear()
+  }
 }
 ```
 
