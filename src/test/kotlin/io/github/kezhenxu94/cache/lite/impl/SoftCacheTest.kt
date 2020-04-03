@@ -16,7 +16,7 @@ class SoftCacheTest : BaseCacheTest() {
 
   @Test
   fun shouldClearUnreachableItems() {
-    val size = 2048
+    val size = 2048 * 2
     for (i in 0 until size) {
       cache[i] = ByteArray(ONE_MEGABYTE)
     }
