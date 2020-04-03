@@ -21,7 +21,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-abstract class BaseCacheTest {
+internal abstract class BaseCacheTest {
   protected lateinit var cache: Cache
 
   @Before

@@ -20,7 +20,7 @@ import io.github.kezhenxu94.cache.lite.BaseCacheTest
 import org.junit.Assert
 import org.junit.Test
 
-class SoftCacheTest : BaseCacheTest() {
+internal class SoftCacheTest : BaseCacheTest() {
   init {
     cache = SoftCache(PerpetualCache())
   }

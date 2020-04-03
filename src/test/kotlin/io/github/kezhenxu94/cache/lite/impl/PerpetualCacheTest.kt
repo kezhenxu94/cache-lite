@@ -20,15 +20,15 @@ import io.github.kezhenxu94.cache.lite.BaseCacheTest
 import org.junit.Assert
 import org.junit.Test
 
-class PerpetualCacheTest : BaseCacheTest() {
-	init {
-		cache = PerpetualCache()
-	}
+internal class PerpetualCacheTest : BaseCacheTest() {
+  init {
+    cache = PerpetualCache()
+  }
 
-	@Test
-	fun shouldKeepAllEntries() {
-		for (i in 0..99) {
-			Assert.assertNotNull(cache[i])
-		}
-	}
+  @Test
+  fun shouldKeepAllEntries() {
+    for (i in 0..99) {
+      Assert.assertNotNull(cache[i])
+    }
+  }
 }

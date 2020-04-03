@@ -21,24 +21,24 @@ import org.junit.Assert
 import org.junit.Test
 import java.util.concurrent.TimeUnit
 
-class ExpirableCacheTest : BaseCacheTest() {
-	init {
-		cache = ExpirableCache(PerpetualCache(), TimeUnit.SECONDS.toMillis(5))
-	}
+internal class ExpirableCacheTest : BaseCacheTest() {
+  init {
+    cache = ExpirableCache(PerpetualCache(), TimeUnit.SECONDS.toMillis(5))
+  }
 
-	@Test
-	fun shouldExpire() {
-		Thread.sleep(TimeUnit.SECONDS.toMillis(5))
-		Assert.assertEquals(0, cache.size)
-	}
+  @Test
+  fun shouldExpire() {
+    Thread.sleep(TimeUnit.SECONDS.toMillis(5))
+    Assert.assertEquals(0, cache.size)
+  }
 
-    @Test
-    fun shouldExpireMultipleTimes() {
-        Thread.sleep(TimeUnit.SECONDS.toMillis(5))
-        Assert.assertEquals(0, cache.size)
-        cache[1] = 1
-        Assert.assertEquals(1, cache.size)
-        Thread.sleep(TimeUnit.SECONDS.toMillis(5))
-        Assert.assertEquals(0, cache.size)
-    }
+  @Test
+  fun shouldExpireMultipleTimes() {
+    Thread.sleep(TimeUnit.SECONDS.toMillis(5))
+    Assert.assertEquals(0, cache.size)
+    cache[1] = 1
+    Assert.assertEquals(1, cache.size)
+    Thread.sleep(TimeUnit.SECONDS.toMillis(5))
+    Assert.assertEquals(0, cache.size)
+  }
 }

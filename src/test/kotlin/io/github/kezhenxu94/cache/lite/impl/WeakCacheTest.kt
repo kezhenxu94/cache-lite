@@ -20,22 +20,22 @@ import io.github.kezhenxu94.cache.lite.BaseCacheTest
 import org.junit.Assert
 import org.junit.Test
 
-class WeakCacheTest : BaseCacheTest() {
-	init {
-		cache = WeakCache(PerpetualCache())
-	}
+internal class WeakCacheTest : BaseCacheTest() {
+  init {
+    cache = WeakCache(PerpetualCache())
+  }
 
-	@Test
-	fun shouldClearUnreachableItems() {
-		val size = 2048
-		for (i in 0 until size) {
-			cache[i] = ByteArray(ONE_MEGABYTE)
-		}
-		System.gc()
-		Assert.assertTrue(cache.size < size)
-	}
+  @Test
+  fun shouldClearUnreachableItems() {
+    val size = 2048
+    for (i in 0 until size) {
+      cache[i] = ByteArray(ONE_MEGABYTE)
+    }
+    System.gc()
+    Assert.assertTrue(cache.size < size)
+  }
 
-	companion object {
-		private const val ONE_MEGABYTE = 1024 * 1024
-	}
+  companion object {
+    private const val ONE_MEGABYTE = 1024 * 1024
+  }
 }
