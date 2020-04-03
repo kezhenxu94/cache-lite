@@ -19,6 +19,9 @@ package io.github.kezhenxu94.cache.lite.impl
 import io.github.kezhenxu94.cache.lite.Cache
 import java.util.concurrent.TimeUnit
 
+/**
+ * [ExpirableCache] flushes the items whose life time is longer than [flushInterval].
+ */
 class ExpirableCache(private val delegate: Cache,
                      private val flushInterval: Long = TimeUnit.MINUTES.toMillis(1)) : Cache by delegate {
   private var lastFlushTime = System.nanoTime()

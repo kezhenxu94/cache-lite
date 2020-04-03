@@ -21,6 +21,9 @@ import io.github.kezhenxu94.cache.lite.Cache
 import java.lang.ref.ReferenceQueue
 import java.lang.ref.SoftReference
 
+/**
+ * [SoftCache] caches items with a [SoftReference] wrapper.
+ */
 class SoftCache(private val delegate: Cache) : Cache by delegate {
   private val referenceQueue = ReferenceQueue<Any>()
 

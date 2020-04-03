@@ -18,6 +18,9 @@ package io.github.kezhenxu94.cache.lite.impl
 
 import io.github.kezhenxu94.cache.lite.Cache
 
+/**
+ * [LRUCache] flushes items that are **Least Recently Used** and keeps [minimalSize] items at most.
+ */
 class LRUCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache by delegate {
   private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f, true) {
     override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Any, Any>): Boolean {

@@ -16,14 +16,32 @@
 
 package io.github.kezhenxu94.cache.lite
 
+/**
+ * [Cache] defines the basic operations to a cache.
+ */
 interface Cache {
-	val size: Int
+  /**
+   * The number of the items that are currently cached.
+   */
+  val size: Int
 
-	operator fun set(key: Any, value: Any)
+  /**
+   * Cache a [value] with a given [key]
+   */
+  operator fun set(key: Any, value: Any)
 
-	operator fun get(key: Any): Any?
+  /**
+   * Get the cached value of a given [key], or null if it's not cached or evicted.
+   */
+  operator fun get(key: Any): Any?
 
-	fun remove(key: Any): Any?
+  /**
+   * Remove the value of the [key] from the cache, and return the removed value, or null if it's not cached at all.
+   */
+  fun remove(key: Any): Any?
 
-	fun clear()
+  /**
+   * Remove all the items in the cache.
+   */
+  fun clear()
 }
