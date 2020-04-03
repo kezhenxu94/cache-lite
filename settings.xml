@@ -8,6 +8,12 @@
 
   <profiles>
     <profile>
+      <id>sign</id>
+      <properties>
+        <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+      </properties>
+    </profile>
+    <profile>
       <id>github</id>
       <repositories>
         <repository>
