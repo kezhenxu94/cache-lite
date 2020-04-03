@@ -3,7 +3,7 @@ name: Deploy
 on:
   release:
     types:
-      - created
+      - published
 
 env:
   GITHUB_USERNAME: x-access-token
