@@ -8,6 +8,9 @@ on:
 env:
   GITHUB_USERNAME: x-access-token
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+  OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+  GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
 jobs:
   deploy-github:
@@ -17,3 +20,15 @@ jobs:
       - uses: actions/checkout@v2
       - name: Deploy to GitHub Package Registry
         run: ./mvnw --batch-mode --settings settings.xml -Pgithub clean deploy
+
+  deploy-sonatype:
+    name: Deploy to Sonatype Package Registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Import GPG Keys
+        run: |
+          gpg --keyserver keyserver.ubuntu.com --recv-keys ${{ secrets.GPG_PUBLIC_KEY }}
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes -
+      - name: Deploy to Sonatype Package Registry
+        run: ./mvnw --batch-mode --settings settings.xml -Possrh,sign clean deploy
