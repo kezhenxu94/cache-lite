@@ -4,11 +4,24 @@ Cache-Lite - An extremely light-weight cache framework for Kotlin
 [![Build](https://github.com/kezhenxu94/cache-lite/workflows/Build/badge.svg?branch=master)](https://github.com/kezhenxu94/cache-lite/actions?query=branch%3Amaster+event%3Apush+workflow%3A%22Build%22)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%20v2.0-blue.svg)](https://apache.org)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.71-blue.svg)](https://kotlinlang.org)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kezhenxu94/cache-lite)](https://mvnrepository.com/artifact/io.github.kezhenxu94/cache-lite)
 [![codecov](https://codecov.io/gh/kezhenxu94/cache-lite/branch/master/graph/badge.svg)](https://codecov.io/gh/kezhenxu94/cache-lite)
 
 The Cache-Lite is an extremely light-weight cache framework implemented in Kotlin, it is for study case.
 
 You can check out the source code to learn how caching works and learn how to implement a simple cache framework by yourself.
+
+## Usage
+
+Although this is a simple project for study case, it's well tested and you can still use it in your project if you found it fits your use case.
+
+```xml
+<dependency>
+    <groupId>io.github.kezhenxu94</groupId>
+    <artifactId>cache-lite</artifactId>
+    <version>${cache-lite.version}</version>
+</dependency>
+```
 
 ## Background
 
