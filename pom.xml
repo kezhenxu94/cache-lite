@@ -15,6 +15,13 @@
     <java.version>1.8</java.version>
   </properties>
 
+  <scm>
+    <connection>scm:git:git://github.com/kezhenxu94/cache-lite.git</connection>
+    <developerConnection>scm:git:git@github.com:kezhenxu94/cache-lite.git</developerConnection>
+    <url>https://github.com/kezhenxu94/cache-lite</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <profiles>
     <profile>
       <id>github</id>
@@ -23,6 +30,20 @@
           <id>github</id>
           <name>GitHub kezhenxu94 Apache Maven Packages</name>
           <url>https://maven.pkg.github.com/kezhenxu94/cache-lite</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+    <profile>
+      <id>ossrh</id>
+      <distributionManagement>
+        <snapshotRepository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
+          </url>
         </repository>
       </distributionManagement>
     </profile>
@@ -114,6 +135,7 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 </project>
