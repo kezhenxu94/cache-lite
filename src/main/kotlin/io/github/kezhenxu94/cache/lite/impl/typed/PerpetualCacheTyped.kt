@@ -14,9 +14,26 @@
  * limitations under the License.
  */
 
-package io.github.kezhenxu94.cache.lite
+package io.github.kezhenxu94.cache.lite.impl.typed
+
+import io.github.kezhenxu94.cache.lite.GenericTypedCache
 
 /**
- * Non typed [Cache] interface.
+ * [PerpetualCacheTyped] caches the items perpetually unless they're manually [remove]ed.
  */
-interface Cache : GenericTypedCache<Any, Any>
+class PerpetualCacheTyped<K, V> : GenericTypedCache<K, V> {
+  private val cache = HashMap<K, V>()
+
+  override val size: Int
+    get() = cache.size
+
+  override fun set(key: K, value: V) {
+    cache[key] = value
+  }
+
+  override fun remove(key: K) = cache.remove(key)
+
+  override fun get(key: K) = cache[key]
+
+  override fun clear() = cache.clear()
+}
