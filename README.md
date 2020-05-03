@@ -178,12 +178,12 @@ We are given a `flushInterval`, and we will clear the cache every `flushInterval
 
 Besides the three implementations we discussed above, here are several implementations such as `FIFOCache`, `SoftCache` and `WeakCache`, implemented with **[First-in-first-out algorithm](https://en.wikipedia.org/wiki/FIFO_%28computing_and_electronics%29)**, **[Soft Reference](https://en.wikipedia.org/wiki/Soft_reference)**, and **[Weak Reference](https://en.wikipedia.org/wiki/Weak_reference)** respectively.
 
-## Generic Cache
+## None-typed Cache
 
-To make the cache type save use the GenericTypedCache interface when creating cache instances. `Set` or `get` methods will become type safe.
+To make a cache more flexible, in terms of values it can store, type-alias can be declared
 
 ```kotlin
-var cache: GenericTypedCache<Int, Int>
+typealias Cache = GenericCache<Any, Any>
 ```
 
 You can check out the source code [here in GitHub](https://github.com/kezhenxu94/cache-lite).
