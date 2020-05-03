@@ -22,7 +22,7 @@ import org.junit.Before
 import org.junit.Test
 
 internal abstract class BaseCacheTest {
-  protected lateinit var cache: GenericTypedCache<Any, Any>
+  protected lateinit var cache: GenericCache<Any, Any>
 
   @Before
   fun setup() {

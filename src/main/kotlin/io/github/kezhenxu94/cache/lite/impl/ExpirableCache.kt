@@ -16,14 +16,16 @@
 
 package io.github.kezhenxu94.cache.lite.impl
 
-import io.github.kezhenxu94.cache.lite.Cache
+import io.github.kezhenxu94.cache.lite.GenericCache
 import java.util.concurrent.TimeUnit
 
 /**
  * [ExpirableCache] flushes the items whose life time is longer than [flushInterval].
  */
-class ExpirableCache(private val delegate: Cache,
-                     private val flushInterval: Long = TimeUnit.MINUTES.toMillis(1)) : Cache by delegate {
+class ExpirableCache<K, V>(
+  private val delegate: GenericCache<K, V>,
+  private val flushInterval: Long = TimeUnit.MINUTES.toMillis(1)
+) : GenericCache<K, V> by delegate {
   private var lastFlushTime = System.nanoTime()
 
   override val size: Int
@@ -32,12 +34,12 @@ class ExpirableCache(private val delegate: Cache,
       return delegate.size
     }
 
-  override fun remove(key: Any): Any? {
+  override fun remove(key: K): V? {
     recycle()
     return delegate.remove(key)
   }
 
-  override fun get(key: Any): Any? {
+  override fun get(key: K): V? {
     recycle()
     return delegate[key]
   }

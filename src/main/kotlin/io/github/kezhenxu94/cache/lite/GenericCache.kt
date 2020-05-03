@@ -16,39 +16,32 @@
 
 package io.github.kezhenxu94.cache.lite
 
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+/**
+ * A Generic K,V [GenericCache] defines the basic operations to a cache.
+ */
+interface GenericCache<K, V> {
+  /**
+   * The number of the items that are currently cached.
+   */
+  val size: Int
 
-internal abstract class BaseCacheTestTyped {
-  protected lateinit var cache: GenericTypedCache<Int, Int>
+  /**
+   * Cache a [value] with a given [key]
+   */
+  operator fun set(key: K, value: V)
 
-  @Before
-  fun setup() {
-    for (i in 0..99) {
-      cache[i] = i
-    }
-  }
+  /**
+   * Get the cached value of a given [key], or null if it's not cached or evicted.
+   */
+  operator fun get(key: K): V?
 
-  @After
-  fun tearDown() = cache.clear()
+  /**
+   * Remove the value of the [key] from the cache, and return the removed value, or null if it's not cached at all.
+   */
+  fun remove(key: K): V?
 
-  @Test
-  fun shouldClearAllEntries() {
-    Assert.assertTrue(cache.size > 0)
-
-    cache.clear()
-
-    Assert.assertTrue(cache.size == 0)
-  }
-
-  @Test
-  open fun shouldRemoveEntry() {
-    Assert.assertNotNull(cache[1])
-
-    cache.remove(1)
-
-    Assert.assertNull(cache[1])
-  }
+  /**
+   * Remove all the items in the cache.
+   */
+  fun clear()
 }

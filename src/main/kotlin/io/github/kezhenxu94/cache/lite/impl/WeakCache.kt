@@ -16,14 +16,14 @@
 
 package io.github.kezhenxu94.cache.lite.impl
 
-import io.github.kezhenxu94.cache.lite.Cache
+import io.github.kezhenxu94.cache.lite.GenericCache
 import java.lang.ref.ReferenceQueue
 import java.lang.ref.WeakReference
 
 /**
  * [WeakCache] caches items with a [WeakReference] wrapper.
  */
-class WeakCache(private val delegate: Cache) : Cache by delegate {
+class WeakCache(private val delegate: GenericCache<Any, Any>) : GenericCache<Any, Any> by delegate {
   private val referenceQueue = ReferenceQueue<Any>()
 
   private class WeakEntry internal constructor(

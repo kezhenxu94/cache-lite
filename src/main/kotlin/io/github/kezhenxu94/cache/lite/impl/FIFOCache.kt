@@ -16,28 +16,29 @@
 
 package io.github.kezhenxu94.cache.lite.impl
 
-import io.github.kezhenxu94.cache.lite.Cache
+import io.github.kezhenxu94.cache.lite.GenericCache
 
 /**
  * [FIFOCache] caches at most [minimalSize] items that are recently [set].
  */
-class FIFOCache(private val delegate: Cache, private val minimalSize: Int = DEFAULT_SIZE) : Cache by delegate {
-  private val keyMap = object : LinkedHashMap<Any, Any>(minimalSize, .75f) {
-    override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Any, Any>): Boolean {
+class FIFOCache<K, V>(private val delegate: GenericCache<K, V>, private val minimalSize: Int = DEFAULT_SIZE) :
+  GenericCache<K, V> by delegate {
+  private val keyMap = object : LinkedHashMap<K, Boolean>(minimalSize, .75f) {
+    override fun removeEldestEntry(eldest: MutableMap.MutableEntry<K, Boolean>): Boolean {
       val tooManyCachedItems = size > minimalSize
       if (tooManyCachedItems) eldestKeyToRemove = eldest.key
       return tooManyCachedItems
     }
   }
 
-  private var eldestKeyToRemove: Any? = null
+  private var eldestKeyToRemove: K? = null
 
-  override fun set(key: Any, value: Any) {
+  override fun set(key: K, value: V) {
     delegate[key] = value
     cycleKeyMap(key)
   }
 
-  override fun get(key: Any): Any? {
+  override fun get(key: K): V? {
     keyMap[key]
     return delegate[key]
   }
@@ -47,7 +48,7 @@ class FIFOCache(private val delegate: Cache, private val minimalSize: Int = DEFA
     delegate.clear()
   }
 
-  private fun cycleKeyMap(key: Any) {
+  private fun cycleKeyMap(key: K) {
     keyMap[key] = PRESENT
     eldestKeyToRemove?.let { delegate.remove(it) }
     eldestKeyToRemove = null
