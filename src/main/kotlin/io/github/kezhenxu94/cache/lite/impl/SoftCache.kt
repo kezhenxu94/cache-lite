@@ -16,15 +16,14 @@
 
 package io.github.kezhenxu94.cache.lite.impl
 
-import io.github.kezhenxu94.cache.lite.GenericCache
-
+import io.github.kezhenxu94.cache.lite.Cache
 import java.lang.ref.ReferenceQueue
 import java.lang.ref.SoftReference
 
 /**
  * [SoftCache] caches items with a [SoftReference] wrapper.
  */
-class SoftCache(private val delegate: GenericCache<Any, Any>) : GenericCache<Any, Any> by delegate {
+class SoftCache(private val delegate: Cache) : Cache by delegate {
   private val referenceQueue = ReferenceQueue<Any>()
 
   private class SoftEntry internal constructor(
