@@ -180,7 +180,7 @@ Besides the three implementations we discussed above, here are several implement
 
 ## None-typed Cache
 
-To make a cache more flexible, in terms of values it can store, type-alias can be declared
+To make a cache more flexible, in terms of values it can store, Cache type can be used which is just a type-alias
 
 ```kotlin
 typealias Cache = GenericCache<Any, Any>
