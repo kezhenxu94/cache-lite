@@ -17,7 +17,6 @@
 package io.github.kezhenxu94.cache.lite.impl
 
 import io.github.kezhenxu94.cache.lite.Cache
-
 import java.lang.ref.ReferenceQueue
 import java.lang.ref.SoftReference
 

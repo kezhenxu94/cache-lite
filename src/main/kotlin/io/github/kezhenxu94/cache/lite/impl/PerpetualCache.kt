@@ -16,24 +16,24 @@
 
 package io.github.kezhenxu94.cache.lite.impl
 
-import io.github.kezhenxu94.cache.lite.Cache
+import io.github.kezhenxu94.cache.lite.GenericCache
 
 /**
  * [PerpetualCache] caches the items perpetually unless they're manually [remove]ed.
  */
-class PerpetualCache : Cache {
-  private val cache = HashMap<Any, Any>()
+class PerpetualCache<K, V> : GenericCache<K, V> {
+  private val cache = HashMap<K, V>()
 
   override val size: Int
     get() = cache.size
 
-  override fun set(key: Any, value: Any) {
+  override fun set(key: K, value: V) {
     cache[key] = value
   }
 
-  override fun remove(key: Any) = cache.remove(key)
+  override fun remove(key: K) = cache.remove(key)
 
-  override fun get(key: Any) = cache[key]
+  override fun get(key: K) = cache[key]
 
   override fun clear() = cache.clear()
 }
