@@ -35,6 +35,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           java-version: 8
+          distribution: 'adopt'
       - name: Deploy to GitHub
         run: ./mvnw --batch-mode --settings settings.xml -Pgithub clean deploy
 
