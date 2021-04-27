@@ -32,6 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          java-version: 8
       - name: Deploy to GitHub
         run: ./mvnw --batch-mode --settings settings.xml -Pgithub clean deploy
 
@@ -40,6 +43,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          java-version: 8
       - name: Import GPG Keys
         run: |
           gpg --keyserver keyserver.ubuntu.com --recv-keys ${{ secrets.GPG_PUBLIC_KEY }}
